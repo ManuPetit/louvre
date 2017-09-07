@@ -1,0 +1,93 @@
+{% import _self as formMacros %}
+
+{% macro printItemRow(itemForm) %}
+    <div class="col-md-12 js-order-item">
+        {#<a href="#" class="js-remove-item pull-right">#}
+        {#<span class="glyphicon glyphicon-plus-sign"></span>#}
+        {{ form_errors(itemForm) }}
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_row(itemForm.firstName) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(itemForm.lastName) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(itemForm.birthDate) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_row(itemForm.country) }}
+            </div>
+            <div class="col-md-5">
+                {{ form_row(itemForm.isReducedRate) }}
+                <p class="reduced-warning">Afin d'éviter un refus d'entrée, veuillez prendre
+                    la carte qui vous permet de bénéficier du tarif réduit lors de votre visite.</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <br>
+                <a href="#" class="btn btn-danger js-remove-item">
+                    <span class="glyphicon glyphicon-remove-circle"></span> Supprimer ticket
+                </a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Commande
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4">
+            {% include('LouvreBundle:Order:prices.html.twig') %}
+        </div>
+        <div class="col-sm-8 order-ticket">
+            <h1>Votre billet</h1>
+            {{ form_start(orderForm) }}
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(orderForm.venueDate) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(orderForm.customerEmail) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(orderForm.duration) }}
+                </div>
+            </div>
+            <h3>Vos Tickets</h3>
+            <div class="row js-order-item-wrapper"
+                 data-prototype="{{ formMacros.printItemRow(orderForm.items.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ orderForm.items|length }}">
+                {% for itemForm in orderForm.items %}
+                    {{ formMacros.printItemRow(itemForm) }}
+                {% endfor %}
+            </div>
+            <div class="row text-center"><a href="#" class="btn btn-success js-item-add">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un ticket</a>
+            </div>
+            {{ form_widget(orderForm.items) }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-primary" formnovalidate>Validation de votre commande</button>
+            </div>
+            {{ form_end(orderForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js">
+    </script>
+    <script src="{{ asset('js/louvreorder.js') }}"></script>
+{% endblock %}

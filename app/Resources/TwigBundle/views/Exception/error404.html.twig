@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Erreur : Page non trouvée
+{% endblock %}
+
+{% block body %}
+    <div class="row error-not-found">
+        <h2>ERREUR 404 - page non trouvée !</h2>
+        <p>Il semblerait que la page demandée n'existe pas sur notre serveur.</p>
+        <p>Si l'erreur persiste, veuillez en informer nos services techniques.</p>
+        <p><a class="btn btn-lg btn-info" href="{{ path('welcome_page') }}" role="button">Retour à la page d'accueil</a>
+        </p>
+    </div>
+
+{% endblock %}

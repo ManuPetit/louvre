@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Erreur : {{ status_text }}
+{% endblock %}
+
+{% block body %}
+    <div class="row error-not-found">
+        <h2>Désolé, une erreur vient de se produire</h2>
+        <p>Le serveur a renvoyé l'erreur suivante :<br>"{{ status_code }} {{ status_text }}".</p>
+        <p>Quelque chose ne fonctionne pas correctement et nous en sommes désolé.</p>
+        <p>Si l'erreur persiste, veuillez en informer nos services techniques.</p>
+        <p><a class="btn btn-lg btn-info" href="{{ path('welcome_page') }}" role="button">Retour à la page d'accueil</a>
+        </p>
+    </div>
+{% endblock %}
