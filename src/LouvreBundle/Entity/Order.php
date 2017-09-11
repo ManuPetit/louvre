@@ -196,9 +196,6 @@ class Order
      */
     public function addItem(Item $item)
     {
-//        if ($this->items->contains($item)) {
-//            return;
-//        }
         $this->items[] = $item;
         $item->setOrder($this);
 
@@ -209,9 +206,6 @@ class Order
      */
     public function removeItem(Item $item)
     {
-//        if (!$this->items->contains($item)) {
-//            return;
-//        }
         $this->items->removeElement($item);
         $item->setOrder(null);
     }

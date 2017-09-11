@@ -74,8 +74,6 @@ class OrderController extends Controller
                 //relate each item to the order
                 foreach ($order->getItems() as $item){
                     $order->addItem($item);
-//                    dump($order);
-//                    dump($item);die;
                     $em->persist($item);
                     //set the ticket
                     $item->setTicket(

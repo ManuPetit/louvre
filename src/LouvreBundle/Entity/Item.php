@@ -177,7 +177,7 @@ class Item
     /**
      * @param bool $isReducedRate
      */
-    public function setIsReducedRate($isReducedRate)
+    public function setReducedRate($isReducedRate)
     {
         $this->isReducedRate = $isReducedRate;
     }

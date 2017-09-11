@@ -1,5 +1,6 @@
 {
     "name": "emmanuel/louvre",
+    "description": "This is an exercice to use symfony fro OpenClassroom",
     "license": "proprietary",
     "type": "project",
     "autoload": {

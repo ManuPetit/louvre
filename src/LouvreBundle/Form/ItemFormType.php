@@ -2,6 +2,7 @@
 
 namespace LouvreBundle\Form;
 
+use LouvreBundle\Entity\Country;
 use LouvreBundle\Repository\CountryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -40,11 +41,11 @@ class ItemFormType extends AbstractType
                 'query_builder' => function (CountryRepository $repo) {
                     return $repo->getCountriesByAlphabeticalOrder();
                 },
-                'preferred_choices' => function ($country, $key, $index) {
+                'preferred_choices' => function (Country $country, $key, $index) {
                     return $country->getId() == 75;
                 }
             ])
-            ->add('isReducedRate', CheckboxType::class, [
+            ->add('reducedRate', CheckboxType::class, [
                 'label' => 'Tarif réduit :',
                 'required' => false
             ]);
