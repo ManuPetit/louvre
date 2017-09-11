@@ -13,7 +13,7 @@ use Knp\Menu\MenuFactory;
 
 class Builder
 {
-    public function mainMenu(MenuFactory $factory, array $options)
+    public function mainMenu(MenuFactory $factory)
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');

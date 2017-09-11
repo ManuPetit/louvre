@@ -21,8 +21,7 @@ use Stripe\Error\Card;
 
 class OrderController extends Controller
 {
-    //const MAXIMUM_TICKET_NUMBER_PER_DAY = 1000;
-    const MAXIMUM_TICKET_NUMBER_PER_DAY = 5;
+    const MAXIMUM_TICKET_NUMBER_PER_DAY = 1000;
 
     /**
      * @Route("/billetterie", name="create_ticket")
@@ -134,7 +133,7 @@ class OrderController extends Controller
         $token = $_POST['stripeToken'];
         //create the charge to get paiement from user
         try {
-            $charge = Charge::create([
+            Charge::create([
                 "amount" => $stripe_amount,
                 "currency" => "eur",
                 "description" => "Commande " . $order->getOrderNumber(),
