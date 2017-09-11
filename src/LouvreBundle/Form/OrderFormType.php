@@ -19,7 +19,7 @@ class OrderFormType extends AbstractType
                 'label' => 'Date de visite :',
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd-MM-yyyy',
                 'attr' => [
                     'class' => 'js-venue-datepicker'
                 ]

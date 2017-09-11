@@ -13,14 +13,17 @@ use LouvreBundle\Entity\Order;
 use LouvreBundle\Form\OrderFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Stripe\Error\Card;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class OrderController extends Controller
 {
+    //const MAXIMUM_TICKET_NUMBER_PER_DAY = 1000;
+    const MAXIMUM_TICKET_NUMBER_PER_DAY = 5;
+
     /**
      * @Route("/billetterie", name="create_ticket")
      */
@@ -36,6 +39,31 @@ class OrderController extends Controller
             $form->handleRequest($request);
             //check data
             if ($form->isValid()){
+                //check for number of ticket left
+                $ticketLeft = $this->ticketLeftOnDate($order->getVenueDate());
+                if ($ticketLeft < $order->getItems()->count()){
+                    $message = "Due à un nombre important de vente de tickets pour la journée du " . date_format($order->getVenueDate(), 'd/m/Y');
+                    $message .= ", nous ne sommes pas en mesure de donner suite à votre demande.<br>";
+                    $message .= "Nous en sommes désolé, et nous vous proposons de choisir une date différente pour votre visite.";
+                    $this->addFlash("warning", $message);
+                    $order->setVenueDate(null);
+                    return $this->render('LouvreBundle:Order:create.html.twig',[
+                        'orderForm' => $form->createView()
+                    ]);
+                }
+                //check for ticket type et time of the day
+                $today = new \DateTime();
+                if ((date_format($order->getVenueDate(), 'd/m/Y') === date_format($today,'d/m/Y')) && (date_format($today,'H') >= 14)
+                && $order->getDuration()->getName() === "Journée")
+                {
+                    $message = "Vous avez choisi de venir au musée aujourd'hui et nous vous en remercions.<br>";
+                    $message .= "Néanmoins, il est plus de 14h, et vous avez choisi comme type de billet : Journée.<br>";
+                    $message .= "Nous vous recommandons de changer le type de billet pour Demi-journée afin de continuer votre achat.";
+                    $this->addFlash("warning", $message);
+                    return $this->render('LouvreBundle:Order:create.html.twig',[
+                        'orderForm' => $form->createView()
+                    ]);
+                }
                 $em = $this->getDoctrine()->getManager();
                 //create the order number
                 $order->createOrderNumber();
@@ -69,10 +97,13 @@ class OrderController extends Controller
     /**
      * @Route("/checkout/{id}", name="checkout_ticket")
      */
-    public function checkoutAction($id)
+    public function checkoutAction(Order $order)
     {
+        //check that the order has not been paid all ready(this is a security mesure)
+        if ($order->isOrderPaid()){
+            throw $this->createNotFoundException("Il semblerait que cette commande n'existe pas.");
+        }
         $em = $this->getDoctrine()->getManager();
-        $order =  $em->getRepository('LouvreBundle:Order')->find($id);
         $lines = $em->getRepository('LouvreBundle:Item')->getItemsDataFromOrder($order);
         $total_amount = $em->getRepository('LouvreBundle:Item')->getTotalAmountOfOrder($order);
         $amount = $total_amount['total_price'];
@@ -89,10 +120,13 @@ class OrderController extends Controller
     /**
      * @Route("/paiement/{id}", name="pay_ticket")
      */
-    public function payAction($id)
+    public function payAction(Order $order)
     {
+        //check that the order has not been paid all ready(this is a security mesure)
+        if ($order->isOrderPaid()){
+            throw new \Exception("Erreur interne.");
+        }
         $em = $this->getDoctrine()->getManager();
-        $order =  $em->getRepository('LouvreBundle:Order')->find($id);
         //retrieve the amount
         $total_amount = $em->getRepository('LouvreBundle:Item')->getTotalAmountOfOrder($order);
         $stripe_amount = $total_amount['total_price'] * 100;
@@ -149,7 +183,7 @@ class OrderController extends Controller
                     $message .= "impossibilité de traiter votre carte.";
             }
             $message .= "</strong><br>Veuillez essayer à nouveau.";
-            $this->addFlash("warning", $message);
+            $this->addFlash("danger", $message);
             //redirect to paiement page
             return $this->redirectToRoute('checkout_ticket', ['id' => $order->getId()]);
         }
@@ -158,10 +192,9 @@ class OrderController extends Controller
     /**
      * @Route("/confirmation/{id}", name="confirm_ticket")
      */
-    public function confirmAction($id)
+    public function confirmAction(Order $order)
     {
         $em = $this->getDoctrine()->getManager();
-        $order = $em->getRepository('LouvreBundle:Order')->find($id);
         //retrieve the amount
         $total_amount = $em->getRepository('LouvreBundle:Item')->getTotalAmountOfOrder($order);
         //retrieving the details of the order
@@ -182,5 +215,23 @@ class OrderController extends Controller
 
         return $this->render('LouvreBundle:Order:confirm.html.twig');
 
+    }
+
+    /**
+     * @Route("/date/{date}", name="check_date", options={"expose"=true})
+     */
+    public function checkDateAction(\DateTime $date)
+    {
+        $ticketLeft = $this->ticketLeftOnDate($date);
+        $response = new JsonResponse();
+        return $response->setData(array('ticketLeft' => $ticketLeft ));
+    }
+
+    private function ticketLeftOnDate(\DateTime $date)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $tickets = $em->getRepository('LouvreBundle:Order')->getNumberTicketLeftForDate($date);
+        $ticketLeft = ((self::MAXIMUM_TICKET_NUMBER_PER_DAY - $tickets['sold']) > 0 ) ? self::MAXIMUM_TICKET_NUMBER_PER_DAY - $tickets['sold'] : 0;
+        return $ticketLeft;
     }
 }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new LouvreBundle\LouvreBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

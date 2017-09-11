@@ -2,8 +2,6 @@
 
 {% macro printItemRow(itemForm) %}
     <div class="col-md-12 js-order-item">
-        {#<a href="#" class="js-remove-item pull-right">#}
-        {#<span class="glyphicon glyphicon-plus-sign"></span>#}
         {{ form_errors(itemForm) }}
         <div class="row">
             <div class="col-md-4">
@@ -89,5 +87,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js">
     </script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ asset('js/louvreorder.js') }}"></script>
 {% endblock %}

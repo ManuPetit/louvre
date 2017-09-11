@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="LouvreBundle\Repository\OrderRepository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -178,7 +178,7 @@ class Order
     /**
      * @param Duration $duration
      */
-    public function setDuration($duration)
+    public function setDuration(Duration $duration)
     {
         $this->duration = $duration;
     }
