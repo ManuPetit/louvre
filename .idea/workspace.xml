@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db485f42-fac3-4cbe-a189-fc8fe8a6bc91" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170912113722.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/LouvreBundle/Command/UploadBaseDataCommand.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/LouvreBundle/Controller/OrderControllerTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/LouvreBundle/Entity/ItemTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/LouvreBundle/Entity/OrderTest.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/AppBundle/Controller/DefaultControllerTest.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/LouvreBundle/Controller/DefaultControllerTest.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/louvre.iml" afterPath="$PROJECT_DIR$/.idea/louvre.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170902114704.php" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170902114704.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/louvreDataOnly.sql" afterPath="$PROJECT_DIR$/db/louvreDataOnly.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LouvreBundle/Controller/OrderController.php" afterPath="$PROJECT_DIR$/src/LouvreBundle/Controller/OrderController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LouvreBundle/Entity/Item.php" afterPath="$PROJECT_DIR$/src/LouvreBundle/Entity/Item.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LouvreBundle/Entity/Order.php" afterPath="$PROJECT_DIR$/src/LouvreBundle/Entity/Order.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LouvreBundle/Repository/TicketRepository.php" afterPath="$PROJECT_DIR$/src/LouvreBundle/Repository/TicketRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LouvreBundle/Resources/views/Order/create.html.twig" afterPath="$PROJECT_DIR$/src/LouvreBundle/Resources/views/Order/create.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/louvreorder.js" afterPath="$PROJECT_DIR$/web/js/louvreorder.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,28 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="parameters.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/config/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
-              <caret line="72" column="27" lean-forward="true" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -78,8 +40,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
-        <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/LouvreBundle/Resources/TwigBundle/views/Exception/error404.html.twig" />
         <option value="$PROJECT_DIR$/src/LouvreBundle/Resources/TwigBundle/views/Exception/error.html.twig" />
         <option value="$PROJECT_DIR$/web/css/louvre.css" />
@@ -129,6 +89,8 @@
         <option value="$PROJECT_DIR$/db/louvreDataOnly.sql" />
         <option value="$PROJECT_DIR$/src/LouvreBundle/Command/UploadBaseDataCommand.php" />
         <option value="$PROJECT_DIR$/src/LouvreBundle/Controller/OrderController.php" />
+        <option value="$PROJECT_DIR$/app/config/config.yml" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -265,7 +227,7 @@
             <path>
               <item name="louvre" type="b2602c69:ProjectViewProjectNode" />
               <item name="louvre" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="bin" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -325,12 +287,12 @@
       <workItem from="1505271495389" duration="7913000" />
       <workItem from="1505312455761" duration="5093000" />
       <workItem from="1505389013813" duration="1132000" />
-      <workItem from="1505390605510" duration="5801000" />
+      <workItem from="1505390605510" duration="7341000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124200000" />
+    <option name="totallyTimeSpent" value="125740000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1044" y="0" width="1520" height="1407" extended-state="0" />
@@ -367,37 +329,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/dictionaries/Emmanuel.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20170902114704.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/AppBundle/Controller/DefaultControllerTest.php" />
-    <entry file="file://$PROJECT_DIR$/src/LouvreBundle/Entity/Country.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LouvreBundle/Entity/Duration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LouvreBundle/Entity/Ticket.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1121">
@@ -744,7 +675,7 @@
         <state relative-caret-position="1560">
           <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
-            <element signature="e#424#456#0#PHP" expanded="true" />
+            <element signature="e#424#456#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -754,15 +685,47 @@
         <state relative-caret-position="2193">
           <caret line="142" column="40" lean-forward="false" selection-start-line="142" selection-start-column="40" selection-end-line="142" selection-end-column="40" />
           <folding>
-            <element signature="e#2215#2235#1#PHP" expanded="true" />
-            <element signature="e#2657#2678#1#PHP" expanded="true" />
-            <element signature="e#3529#3548#1#PHP" expanded="true" />
-            <element signature="e#3625#3644#1#PHP" expanded="true" />
-            <element signature="e#4491#4510#1#PHP" expanded="true" />
-            <element signature="e#7635#7654#1#PHP" expanded="true" />
-            <element signature="e#7770#7789#1#PHP" expanded="true" />
-            <element signature="e#9024#9044#1#PHP" expanded="true" />
+            <element signature="e#2215#2235#1#PHP" expanded="false" />
+            <element signature="e#2657#2678#1#PHP" expanded="false" />
+            <element signature="e#3529#3548#1#PHP" expanded="false" />
+            <element signature="e#3625#3644#1#PHP" expanded="false" />
+            <element signature="e#4491#4510#1#PHP" expanded="false" />
+            <element signature="e#7635#7654#1#PHP" expanded="false" />
+            <element signature="e#7770#7789#1#PHP" expanded="false" />
+            <element signature="e#9024#9044#1#PHP" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/symfony_requirements">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2958">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml.dist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -774,10 +737,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="476">
+            <caret line="28" column="48" lean-forward="true" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="72" column="27" lean-forward="true" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+        <state relative-caret-position="1081">
+          <caret line="72" column="27" lean-forward="false" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
           <folding />
         </state>
       </provider>
