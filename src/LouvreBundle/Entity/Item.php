@@ -38,7 +38,7 @@ class Item
      * @Assert\NotBlank(message="Veuillez entrer un prénom.")
      * @Assert\Regex(pattern="/\d/", match=false, message="Pas de chiffre dans votre prénom.")
      * @Assert\Length(min=2, max=45,
-     *     minMessage="Un nom doit avoir au moins 2 caractères.",
+     *     minMessage="Un prénom doit avoir au moins 2 caractères.",
      *     maxMessage="45 caractères maximum.")
      */
     private $firstName;
@@ -49,7 +49,7 @@ class Item
      * @Assert\NotBlank(message="Veuillez entrer un nom.")
      * @Assert\Regex(pattern="/\d/", match=false, message="Pas de chiffre dans votre nom.")
      * @Assert\Length(min=2, max=45,
-     *     minMessage="Un prénom doit avoir au moins 2 caractères.",
+     *     minMessage="Un nom doit avoir au moins 2 caractères.",
      *     maxMessage="45 caractères maximum.")
      */
     private $lastName;
@@ -239,6 +239,10 @@ class Item
         //calculate the age range of the ticket
         $interval = date_diff($this->order->getVenueDate(), $this->birthDate, $differenceFormat = '%y');
         $age = $interval->format($differenceFormat);
+        if ($age < 4) {
+            //this should not happen !
+            throw new \LogicException("Minimum de 4 ans pour pourvoir acheter un ticket.");
+        }
         //by default rate is adult rate
         $rate = self::ADULT_RATE;
         //check if we have a reduced rate selected
@@ -253,3 +257,4 @@ class Item
     }
 
 }
+

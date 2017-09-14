@@ -80,9 +80,17 @@ class Order
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="LouvreBundle\Entity\Item", mappedBy="order")
+     * @Assert\Count(min=1,minMessage="Vous devez avoir au moins un ticket pour passer une commande.")
      * @Assert\Valid()
      */
     private $items;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $emailSent;
 
     /**
      * Order constructor.
@@ -91,6 +99,7 @@ class Order
     public function __construct()
     {
         $this->orderPaid = false;
+        $this->emailSent = false;
         $this->orderDate = new \DateTime();
         $this->items = new ArrayCollection();
     }
@@ -168,6 +177,22 @@ class Order
     }
 
     /**
+     * @return bool
+     */
+    public function isEmailSent()
+    {
+        return $this->emailSent;
+    }
+
+    /**
+     * @param bool $emailSent
+     */
+    public function setEmailSent($emailSent)
+    {
+        $this->emailSent = $emailSent;
+    }
+
+    /**
      * @return Duration
      */
     public function getDuration()
@@ -234,4 +259,40 @@ class Order
             . $word
             . date_format($this->venueDate, 'ymd');
     }
+
+    /**
+     * Function to return a message if it is inpossible to order for this
+     * date when validating
+     * @param $ticketLeft
+     * @return string|void
+     */
+    public function checkOrderProcessing($ticketLeft){
+        if ($ticketLeft < $this->items->count()){
+            $message = "Due à un nombre important de vente de tickets pour la journée du " . date_format($this->venueDate, 'd/m/Y');
+            $message .= ", nous ne sommes pas en mesure de donner suite à votre demande.<br>";
+            $message .= "Nous en sommes désolé, et nous vous proposons de choisir une date différente pour votre visite.";
+            $this->venueDate = null;
+            return $message;
+        }
+        return;
+    }
+
+    /**
+     * Function to check if the user buys a ticket for today after 14h
+     * @return string|void
+     */
+    public function checkDurationVisit()
+    {
+        $today = new \DateTime();
+        if ((date_format($this->venueDate, 'd/m/Y') === date_format($today,'d/m/Y')) && (date_format($today,'H') >= 14)
+            && $this->duration->getName() === "Journée"){
+            $message = "Vous avez choisi de venir au musée aujourd'hui et nous vous en remercions.<br>";
+            $message .= "Néanmoins, il est plus de 14h, et vous avez choisi comme type de billet : Journée.<br>";
+            $message .= "Nous vous recommandons de changer le type de billet pour Demi-journée afin de continuer votre achat,<br>";
+            $message .= "ou de choisir un autre jour de visite... Merci.";
+            return $message;
+        }
+        return;
+    }
 }
+

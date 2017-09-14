@@ -31,3 +31,4 @@ class TicketRepository extends EntityRepository
             ->getSingleResult();
     }
 }
+

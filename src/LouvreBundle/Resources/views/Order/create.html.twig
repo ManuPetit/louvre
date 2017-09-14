@@ -53,6 +53,7 @@
             <h1>Votre billet</h1>
             {{ form_start(orderForm) }}
             <div class="row">
+                {{ form_errors(orderForm) }}
                 <div class="col-md-4">
                     {{ form_row(orderForm.venueDate) }}
                 </div>
@@ -76,7 +77,7 @@
             </div>
             {{ form_widget(orderForm.items) }}
             <div class="text-center">
-                <button type="submit" class="btn btn-lg btn-primary" formnovalidate>Validation de votre commande</button>
+                <button id="submit" type="submit" class="btn btn-lg btn-primary" formnovalidate>Validation de votre commande</button>
             </div>
             {{ form_end(orderForm) }}
         </div>

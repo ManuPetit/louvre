@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('.js-venue-datepicker').datepicker({
         format: 'dd-mm-yyyy',
         language: 'fr',
-        daysOfWeekDisabled: '2',
+        daysOfWeekDisabled: '6',
         todayHighlight: true,
         startDate: "0",
         datesDisabled: ['01-05-2017', '01-11-2017', '25-12-2017',

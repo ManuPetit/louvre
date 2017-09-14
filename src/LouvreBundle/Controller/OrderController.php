@@ -40,29 +40,23 @@ class OrderController extends Controller
             if ($form->isValid()){
                 //check for number of ticket left
                 $ticketLeft = $this->ticketLeftOnDate($order->getVenueDate());
-                if ($ticketLeft < $order->getItems()->count()){
-                    $message = "Due à un nombre important de vente de tickets pour la journée du " . date_format($order->getVenueDate(), 'd/m/Y');
-                    $message .= ", nous ne sommes pas en mesure de donner suite à votre demande.<br>";
-                    $message .= "Nous en sommes désolé, et nous vous proposons de choisir une date différente pour votre visite.";
+                $message = $order->checkOrderProcessing($ticketLeft);
+                if ($message !== null){
                     $this->addFlash("warning", $message);
-                    $order->setVenueDate(null);
                     return $this->render('LouvreBundle:Order:create.html.twig',[
                         'orderForm' => $form->createView()
                     ]);
                 }
                 //check for ticket type et time of the day
-                $today = new \DateTime();
-                if ((date_format($order->getVenueDate(), 'd/m/Y') === date_format($today,'d/m/Y')) && (date_format($today,'H') >= 14)
-                && $order->getDuration()->getName() === "Journée")
+                $message = $order->checkDurationVisit();
+                if ($message !== null)
                 {
-                    $message = "Vous avez choisi de venir au musée aujourd'hui et nous vous en remercions.<br>";
-                    $message .= "Néanmoins, il est plus de 14h, et vous avez choisi comme type de billet : Journée.<br>";
-                    $message .= "Nous vous recommandons de changer le type de billet pour Demi-journée afin de continuer votre achat.";
                     $this->addFlash("warning", $message);
                     return $this->render('LouvreBundle:Order:create.html.twig',[
                         'orderForm' => $form->createView()
                     ]);
                 }
+                //we are now okay to process
                 $em = $this->getDoctrine()->getManager();
                 //create the order number
                 $order->createOrderNumber();
@@ -98,7 +92,7 @@ class OrderController extends Controller
     {
         //check that the order has not been paid all ready(this is a security mesure)
         if ($order->isOrderPaid()){
-            throw $this->createNotFoundException("Il semblerait que cette commande n'existe pas.");
+            throw $this->createNotFoundException("Une erreur s'est produite.");
         }
         $em = $this->getDoctrine()->getManager();
         $lines = $em->getRepository('LouvreBundle:Item')->getItemsDataFromOrder($order);
@@ -121,7 +115,7 @@ class OrderController extends Controller
     {
         //check that the order has not been paid all ready(this is a security mesure)
         if ($order->isOrderPaid()){
-            throw new \Exception("Erreur interne.");
+            throw $this->createNotFoundException("Une erreur s'est produite.");
         }
         $em = $this->getDoctrine()->getManager();
         //retrieve the amount
@@ -191,6 +185,10 @@ class OrderController extends Controller
      */
     public function confirmAction(Order $order)
     {
+        //check to see if email has been sent already
+        if ($order->isEmailSent()){
+            throw new \Exception("Erreur interne.");
+        }
         $em = $this->getDoctrine()->getManager();
         //retrieve the amount
         $total_amount = $em->getRepository('LouvreBundle:Item')->getTotalAmountOfOrder($order);
@@ -209,6 +207,9 @@ class OrderController extends Controller
                 'text/html'
             );
         $this->get('mailer')->send($message);
+        //set emailSent flag to true
+        $order->setEmailSent(true);
+        $em->flush();
 
         return $this->render('LouvreBundle:Order:confirm.html.twig');
 
@@ -232,3 +233,4 @@ class OrderController extends Controller
         return $ticketLeft;
     }
 }
+

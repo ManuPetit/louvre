@@ -286,15 +286,6 @@ INSERT INTO `durations` (`id`, `name`) VALUES
 (2, 'Demi-journée');
 
 --
--- Déchargement des données de la table `migration_versions`
---
-
-INSERT INTO `migration_versions` (`version`) VALUES
-('20170901152743'),
-('20170902061622'),
-('20170902092757');
-
---
 -- Déchargement des données de la table `rates`
 --
 
