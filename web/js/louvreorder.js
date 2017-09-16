@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    //keeps the date for checking for 4 years old on venue date
+    var globalMinDate = new Date();
     //configure the datepicker for the venue
     $('.js-venue-datepicker').datepicker({
         format: 'dd-mm-yyyy',
@@ -12,13 +14,14 @@ $(document).ready(function () {
         endDate: '31-12-2019',
         autoclose: true
     }).on('changeDate', function () {
-        console.log($(this).val());
+        var minDate = $(this).datepicker('getDate') || new Date();
+        minDate.setYear(minDate.getFullYear() - 4);
+        $('.js-birth-datepicker').datepicker('setEndDate', minDate);
+        globalMinDate = minDate;
         $.ajax({
             method:'POST',
             url: Routing.generate('check_date', {date: $(this).val()}),
-            //url: 'http://localhost/openc/louvre/web/app_dev.php/date/' + $(this).val(),
             beforeSend: function () {
-                console.log("Charger");
             },
             success: function (data) {
                 var ticketLeft = data.ticketLeft;
@@ -50,7 +53,6 @@ $(document).ready(function () {
         format: 'dd-mm-yyyy',
         language: 'fr',
         startDate: '01-01-1900',
-        endDate: '-4y',
         autoclose: true
     });
 
@@ -109,7 +111,7 @@ $(document).ready(function () {
             format: 'dd-mm-yyyy',
             language: 'fr',
             startDate: '01-01-1900',
-            endDate: '-4y',
+            endDate: globalMinDate,
             autoclose: true
         });
 
