@@ -250,7 +250,7 @@ class Item
             $rate = self::REDUCED_RATE;
         } else if ($age >= 60) {
             $rate = self::SENIOR_RATE;
-        } else if ($age >= 4 && $age < 12) {
+        } else if ($age >= 4 && $age <= 12) {
             $rate = self::CHILD_RATE;
         }
         $this->ticketRate = $rate;
