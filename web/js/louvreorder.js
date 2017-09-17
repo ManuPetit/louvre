@@ -25,7 +25,6 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var ticketLeft = data.ticketLeft;
-                console.log(ticketLeft);
                 if (ticketLeft < 20){
                     var message = "Il ne reste ";
                     if (ticketLeft < 1){
@@ -48,19 +47,22 @@ $(document).ready(function () {
         });
     });
 
+    //checking date in case form is refresh without any date in tickets
+    if ($('.js-venue-datepicker').datepicker('getDate') !== null)
+    {
+        var thisDate = $('.js-venue-datepicker').datepicker('getDate');
+        globalMinDate = thisDate.getDate() + "-" + (thisDate.getMonth() +1) + "-" + (thisDate.getFullYear()-4);
+
+    }
+
     //datepicker for birthdate
     $('.js-birth-datepicker').datepicker({
         format: 'dd-mm-yyyy',
         language: 'fr',
         startDate: '01-01-1900',
+        endDate: globalMinDate,
         autoclose: true
     });
-
-    $('.js-venue-datepicker').datepicker()
-        .on('changeDate', function(e){
-            //retrieving the date
-            var $date = $(this).val();
-        });
 
     // Get the div with « data-prototype »
     var $container = $('.js-order-item-wrapper');
@@ -68,7 +70,6 @@ $(document).ready(function () {
     // Create a counter
     // var index = $container.find(':input').length;
     var index = $container.attr('data-index');
-    console.log(index);
 
     // Add a new form when clicking on button
     $('.js-item-add').click(function (e) {
